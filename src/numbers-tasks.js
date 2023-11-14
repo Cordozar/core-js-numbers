@@ -533,7 +533,6 @@ function isSafeInteger(number) {
 
   return false;
 }
-
 /**
  * Returns the smallest integer less than or equal to a given number.
  *

@@ -438,7 +438,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return +number;
+  return number.valueOf();
 }
 
 /**
@@ -457,7 +457,11 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  return Number.isInteger(number);
+  return (
+    typeof number === 'number' &&
+    Number.isFinite(number) &&
+    !Number.isNaN(number)
+  );
 }
 
 /**
@@ -505,9 +509,9 @@ function getFloatOnString(str) {
  */
 function getIntegerOnString(str, base) {
   const result = parseInt(str, base);
-  if (Number.isNaN(result)) {
-    return NaN;
-  }
+  // if (Number.isNaN(result)) {
+  //   return NaN;
+  // }
   return result;
 }
 
@@ -523,15 +527,7 @@ function getIntegerOnString(str, base) {
  * 2 ** 53  => false
  */
 function isSafeInteger(number) {
-  if (
-    number <= Number.MAX_SAFE_INTEGER &&
-    number >= Number.MIN_SAFE_INTEGER &&
-    Number.isInteger(number)
-  ) {
-    return true;
-  }
-
-  return false;
+  return Number.isSafeInteger(number);
 }
 /**
  * Returns the smallest integer less than or equal to a given number.
